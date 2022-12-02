@@ -10,7 +10,7 @@ export interface IStormGlassPointSource {
 }
 
 export interface IStormGlassPoint {
-  readonly time: string;
+  time: string;
   readonly waveHeight: IStormGlassPointSource;
   readonly waveDirection: IStormGlassPointSource;
   readonly swellDirection: IStormGlassPointSource;
@@ -37,8 +37,9 @@ export interface IForecastPoint {
 
 export class StormGlass {
   readonly stormGlassAPIParams =
-    "swellDirection,swellHeight,swellPeriod,waveHeight,windDirection,windSpeed";
+    "swellDirection,swellHeight,swellPeriod,waveDirection,waveHeight,windDirection,windSpeed";
   readonly stormGlassAPISource = "noaa";
+
   constructor(protected request = new HTTPUtil.Request()) {}
 
   public async fetchPoints(
@@ -47,10 +48,11 @@ export class StormGlass {
   ): Promise<IForecastPoint[]> {
     try {
       const response = await this.request.get<IStormGlassForecastResponse>(
-        `https://api.stormglass.io/v2/weather/point?params=${this.stormGlassAPIParams}&source=${this.stormGlassAPISource}&lat=${lat}&lng=${lng}`,
+        `https://api.stormglass.io/v2/weather/point?lat=${lat}&lng=${lng}&params=${this.stormGlassAPIParams}&source=${this.stormGlassAPISource}`,
         {
           headers: {
-            Authorization: "fake-token",
+            Authorization:
+              "9f3868b4-6fd4-11ed-a654-0242ac130002-9f386954-6fd4-11ed-a654-0242ac130002",
           },
         }
       );
