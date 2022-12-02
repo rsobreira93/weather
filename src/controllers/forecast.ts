@@ -16,8 +16,9 @@ export class ForecastController {
 
       const forecastData = await forecast.processForecastForBeaches(beaches);
 
-      response.status(200).send(forecastData);
+      response.status(200).json(forecastData);
     } catch (error: any) {
+      console.error(error);
       response.status(500).send({ error: "Something went wrong" });
     }
   }
