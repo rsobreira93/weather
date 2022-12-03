@@ -26,10 +26,27 @@ describe("Users functional tests", () => {
 
       const response = await global.testRequest.post("/users").send(newUser);
 
-      expect(response.status).toBe(400);
+      expect(response.status).toBe(422);
       expect(response.body).toEqual({
-        code: 400,
-        error: "User validation failed: Path `name` is required.",
+        code: 422,
+        error: "User validation failed: name: Path `name` is required.",
+      });
+    });
+
+    it("Should return 409 when the user email already exists", async () => {
+      const newUser = {
+        name: "John Doe",
+        email: "john@mail.com",
+        password: "password",
+      };
+
+      await global.testRequest.post("/users").send(newUser);
+      const response = await global.testRequest.post("/users").send(newUser);
+
+      expect(response.status).toBe(409);
+      expect(response.body).toEqual({
+        code: 409,
+        error: "User validation failed: email: already exists in the database.",
       });
     });
   });
