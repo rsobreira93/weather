@@ -11,13 +11,13 @@ interface UserModel extends Omit<User, "_id">, Document {}
 
 const schema = new mongoose.Schema(
   {
-    name: { type: String, require: true },
+    name: { type: String, required: true },
     email: {
       type: String,
-      require: true,
+      required: true,
       unique: true,
     },
-    password: { type: String, require: true },
+    password: { type: String, required: true },
   },
   {
     toJSON: {
