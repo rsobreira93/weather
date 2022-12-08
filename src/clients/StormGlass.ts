@@ -51,7 +51,8 @@ export class StormGlass {
         `https://api.stormglass.io/v2/weather/point?lat=${lat}&lng=${lng}&params=${this.stormGlassAPIParams}&source=${this.stormGlassAPISource}`,
         {
           headers: {
-            Authorization: "fake-token",
+            Authorization:
+              "9f3868b4-6fd4-11ed-a654-0242ac130002-9f386954-6fd4-11ed-a654-0242ac130002",
           },
         }
       );
