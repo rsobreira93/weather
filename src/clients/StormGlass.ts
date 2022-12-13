@@ -4,6 +4,7 @@ import {
 } from "@src/util/errors/ClientErrors";
 
 import * as HTTPUtil from "@src/util/Request";
+import { TimeUtil } from "@src/util/Time";
 
 export interface IStormGlassPointSource {
   [key: string]: number;
@@ -46,12 +47,14 @@ export class StormGlass {
     lat: number,
     lng: number
   ): Promise<IForecastPoint[]> {
+    const endTimestamp = TimeUtil.getUnixTimeForAFutureDay(1);
     try {
       const response = await this.request.get<IStormGlassForecastResponse>(
-        `https://api.stormglass.io/v2/weather/point?lat=${lat}&lng=${lng}&params=${this.stormGlassAPIParams}&source=${this.stormGlassAPISource}`,
+        `https://api.stormglass.io/v2/weather/point?lat=${lat}&lng=${lng}&params=${this.stormGlassAPIParams}&source=${this.stormGlassAPISource}&end=${endTimestamp}`,
         {
           headers: {
-            Authorization: "fake2",
+            Authorization:
+              "9f3868b4-6fd4-11ed-a654-0242ac130002-9f386954-6fd4-11ed-a654-0242ac130002",
           },
         }
       );
